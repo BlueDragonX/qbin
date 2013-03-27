@@ -1,9 +1,17 @@
 ![qbin logo](https://raw.github.com/BlueDragonX/qbin/master/assets/logo.png "qbin logo")
 
-A set of tools used to ease the administration of Gentoo binary package servers
-(binhosts) and the hosts that rely on them.
+A set of tools to ease the administration of many similar Gentoo installs
+through the liberal use of binary packages.
 
 ----------------------------------------------------------------------------------------
+
+What is This For?
+-----------------
+
+qbin is used to manage binary packages for a collection of similar Gentoo
+systems. It is intended to be a semi-automated front-end to a chrooted binhost.
+See the road map for some of the planned features.
+
 
 State of the Project
 --------------------
