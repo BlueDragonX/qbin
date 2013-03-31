@@ -3,7 +3,7 @@
 A set of tools to ease the administration of many similar Gentoo installs
 through the liberal use of binary packages.
 
-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 What is This For?
 -----------------
@@ -31,3 +31,14 @@ The following long-term features are anticipated:
 * Host update management.
 * Central web administration.
 * Salt integration.
+
+
+License
+-------
+Copyright (C) 2013 Ryan Bourgeois <bluedragonx@gmail.com>.
+This software is licensed under the [GPLv2][1]. A copy of the license should
+have been included with the source code of this package. If not it is available
+[here][1].
+
+
+[1]: http://www.gnu.org/licenses/gpl-2.0.html "GNU General Public License, version 2"
