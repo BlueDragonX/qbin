@@ -24,5 +24,10 @@ setup(
     install_requires=requires,
     tests_require=requires,
     test_suite="",
-    entry_points="",
+    entry_points={
+        'console_scripts': [
+            'qbin-test-mount=qbin.bin:test_mount',
+            'qbin-test-untar=qbin.bin:test_untar',
+        ]
+    }
 )
