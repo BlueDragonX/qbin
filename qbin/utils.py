@@ -2,6 +2,9 @@
 Common utility functions used by the application.
 """
 
+import os
+import random
+import string
 import subprocess
 from .errors import ExecutionError
 
@@ -75,3 +78,42 @@ def untar(archive, directory, preserve=False):
         flags = 'p%s' % flags
     args = ['tar', flags, archive, '-C', directory]
     execute(args)
+
+
+def randstr(length):
+    """
+    Return a randomly generated string of letters (lower and uppercase) and
+    numbers with the given length.
+    """
+    chars = string.letters + string.digits
+    return ''.join([random.choice(chars) for x in range(length)])
+
+
+def mkdir(directory, mode=0755):
+    """
+    Create a directory and its parents if they do not exist. The create mode
+    may be given and defaults to 0755. Return True if the directory was created
+    or False if it already existed. Raised OSError on failure.
+    """
+    path = os.path.abspath(directory)
+    if os.path.isdir(path):
+        return False
+    os.makedirs(path, mode)
+    return True
+
+
+def mktempdir(prefix='', mode=0777):
+    """
+    Create a directory under /tmp and return its absolute path. The directory
+    name will consist of qbin_ followed by the prefix (of provided) and finally
+    a randome string. Raise OSError on creation failure or RuntimeError if we
+    exceed the number of attempts to create a directory.
+    """
+    prefix = 'qbin_%s' % prefix
+    for x in range(10):
+        name = prefix + randstr(8)
+        path = os.path.join('/tmp', name)
+        if not os.path.exists(path):
+            mkdir(path, mode)
+            return path
+    raise RuntimeError('not enough entropy to create temporary directory')
