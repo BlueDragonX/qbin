@@ -1,4 +1,4 @@
-![qbin logo](https://raw.github.com/BlueDragonX/qbin/master/assets/logo.png "qbin logo")
+![qbin logo](assets/logo.png "qbin logo")
 
 A set of tools to ease the administration of many similar Gentoo installs
 through the liberal use of binary packages.
