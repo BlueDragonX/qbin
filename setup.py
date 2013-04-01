@@ -8,9 +8,15 @@ setup(
     name='qbin',
     version=version,
     description="Gentoo Binary Package Manager",
-    long_description="qbin is a system for managing Gentoo binary packages.",
-    # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[],
+    long_description="A system for managing Gentoo binary packages.",
+    classifiers=[
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'Natural Language :: English',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3.2',
+        'Topic :: System :: Software Distribution',
+    ],
     keywords='',
     author='Ryan Bourgeois',
     author_email='bluedragonx@gmail.com',
