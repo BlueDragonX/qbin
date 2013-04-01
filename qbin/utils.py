@@ -51,13 +51,17 @@ def mount(source, directory, fstype=None, bind=False, options=[]):
     execute(args)
 
 
-def umount(directory):
+def umount(directory, lazy=False):
     """
-    Unmount a filesystem. Raise a ResourceError if the unmount fails. The
-    ResourceError will have its resource set to the umount directory and the
-    umount error message as the reason.
+    Unmount a filesystem. Set lazy to True to perform a lazy unmount. Raise a
+    ResourceError if the unmount fails. The ResourceError will have its
+    resource set to the umount directory and the umount error message as the
+    reason.
     """
-    args = ['umount', directory]
+    args = ['umount']
+    if lazy:
+        args.append('-l')
+    args.append(directory)
     execute(args)
 
 
