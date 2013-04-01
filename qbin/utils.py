@@ -3,7 +3,7 @@ Common utility functions used by the application.
 """
 
 import subprocess
-from .errors import ExecuteError
+from .errors import ExecutionError
 
 
 def execute(args, exitcode=0, redirect=True):
@@ -24,7 +24,7 @@ def execute(args, exitcode=0, redirect=True):
         got_exitcode = e.returncode
 
     if got_exitcode != exitcode:
-        raise ExecuteError(args, got_exitcode, output)
+        raise ExecutionError(args, got_exitcode, output)
     return output
 
 

@@ -3,12 +3,12 @@ Common error classes used throughout the application.
 """
 
 
-class ExecuteError(BaseException):
+class ExecutionError(BaseException):
     """
     Raised when an error occurrs executing an external process.
     """
 
-    def __init__(self, args, exitcode, output):
+    def __init__(self, args, exitcode, output=None):
         """
         Construct a new object with the called process args, exit code, and
         error output.
@@ -21,8 +21,11 @@ class ExecuteError(BaseException):
         """
         Convert the object into a printable string.
         """
-        return "Bad exit code %s for %s: %s" % (
-            self.exitcode, self.args, self.output)
+        value = "bad exit code %s for %s" % (
+            self.exitcode, self.args)
+        if self.output:
+            value = '%s: %s' % (value, self.output)
+        return value
 
     def __repr__(self):
         """
