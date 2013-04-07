@@ -3,7 +3,7 @@ Application entry points.
 """
 
 import sys
-from chroot import Chroot
+from buildroot import BuildRoot
 from utils import mkdir, mount, umount, untar
 
 
@@ -33,9 +33,9 @@ def test_untar():
         untar(archive, dest, preserve)
 
 
-def test_chroot_create():
+def test_buildroot_create():
     """
-    Ad-hoc chroot creation test.
+    Ad-hoc buildroot creation test.
     """
     stage3 = (
         '/home/sadpengu/Sandbox/packages/qbin/assets/'
@@ -43,50 +43,50 @@ def test_chroot_create():
     portage = (
         '/home/sadpengu/Sandbox/packages/qbin/assets/'
         'portage-latest.tar.bz2')
-    chroot = Chroot('/tmp/chroot')
-    if chroot.create(stage3, portage):
-        print("Created chroot at %s" % chroot.root)
+    buildroot = BuildRoot('/tmp/buildroot')
+    if buildroot.create(stage3, portage):
+        print("Created buildroot at %s" % buildroot.root)
     else:
-        print("Chroot already exists at %s" % chroot.root)
+        print("BuildRoot already exists at %s" % buildroot.root)
 
 
-def test_chroot_destroy():
+def test_buildroot_destroy():
     """
-    Ad-hoc chroot destroy test.
+    Ad-hoc buildroot destroy test.
     """
-    chroot = Chroot('/tmp/chroot')
-    if chroot.destroy():
-        print("Destroyed chroot at %s" % chroot.root)
+    buildroot = BuildRoot('/tmp/buildroot')
+    if buildroot.destroy():
+        print("Destroyed buildroot at %s" % buildroot.root)
     else:
-        print("Chroot does not exist at %s" % chroot.root)
+        print("BuildRoot does not exist at %s" % buildroot.root)
 
 
-def test_chroot_start():
+def test_buildroot_start():
     """
-    Ad-hoc chroot start test.
+    Ad-hoc buildroot start test.
     """
-    chroot = Chroot('/tmp/chroot')
-    if chroot.start():
-        print("Started chroot with tmp %s" % chroot.tmp)
+    buildroot = BuildRoot('/tmp/buildroot')
+    if buildroot.start():
+        print("Started buildroot with tmp %s" % buildroot.tmp)
     else:
-        print("Chroot already started with tmp %s" % chroot.tmp)
+        print("BuildRoot already started with tmp %s" % buildroot.tmp)
 
 
-def test_chroot_stop():
+def test_buildroot_stop():
     """
-    Ad-hoc chroot stop test.
+    Ad-hoc buildroot stop test.
     """
-    chroot = Chroot('/tmp/chroot')
-    tmp = chroot.tmp
-    if chroot.stop():
-        print("Stopped chroot with tmp %s" % tmp)
+    buildroot = BuildRoot('/tmp/buildroot')
+    tmp = buildroot.tmp
+    if buildroot.stop():
+        print("Stopped buildroot with tmp %s" % tmp)
     else:
-        print("Chroot already stopped")
+        print("BuildRoot already stopped")
 
 
-def test_chroot_call():
+def test_buildroot_call():
     """
-    Ad-hoc chroot call test.
+    Ad-hoc buildroot call test.
     """
-    chroot = Chroot('/tmp/chroot')
-    sys.exit(chroot.call(sys.argv[1:]))
+    buildroot = BuildRoot('/tmp/buildroot')
+    sys.exit(buildroot.call(sys.argv[1:]))

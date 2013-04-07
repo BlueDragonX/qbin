@@ -30,11 +30,11 @@ setup(
     test_suite="",
     entry_points={
         'console_scripts': [
-            'qbin-test-chroot-create=qbin.bin:test_chroot_create',
-            'qbin-test-chroot-destroy=qbin.bin:test_chroot_destroy',
-            'qbin-test-chroot-start=qbin.bin:test_chroot_start',
-            'qbin-test-chroot-stop=qbin.bin:test_chroot_stop',
-            'qbin-test-chroot-call=qbin.bin:test_chroot_call',
+            'qbin-test-buildroot-create=qbin.bin:test_buildroot_create',
+            'qbin-test-buildroot-destroy=qbin.bin:test_buildroot_destroy',
+            'qbin-test-buildroot-start=qbin.bin:test_buildroot_start',
+            'qbin-test-buildroot-stop=qbin.bin:test_buildroot_stop',
+            'qbin-test-buildroot-call=qbin.bin:test_buildroot_call',
             'qbin-test-mount=qbin.bin:test_mount',
             'qbin-test-untar=qbin.bin:test_untar',
         ]

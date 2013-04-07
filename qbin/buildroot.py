@@ -1,5 +1,6 @@
 """
-Utilities for managing chroots.
+Utilities for managing buildroots. A buildroot is a chroot'd Gentoo build
+environment.
 """
 
 import os
@@ -10,22 +11,22 @@ from .errors import ExecutionError
 from .utils import mkdir, mktempdir, mount, umount, untar
 
 
-class Chroot(object):
+class BuildRoot(object):
     """
-    Manage a single chroot.
+    Manage a single buildroot.
     """
 
     def __init__(self, root):
         """
-        Construct a chroot rooted at the given path.
+        Construct a buildroot at the given path.
         """
         self.root = root
         self.tmp = self.locate_tmp_source()
 
     def locate_tmp_source(self):
         """
-        Locate the tmp mount source for this chroot or None if it has not been
-        created.
+        Locate the tmp mount source for this buildroot or None if it has not
+        been created.
         """
         dest = self.path('/tmp')
         with open('/etc/mtab') as mtab:
@@ -37,8 +38,8 @@ class Chroot(object):
 
     def path(self, path):
         """
-        Return an absolute path to a file in the chroot. Path should be
-        absolute in relation to the chroot. No checks are done to ensure the
+        Return an absolute path to a file in the buildroot. Path should be
+        absolute in relation to the buildroot. No checks are done to ensure the
         paths exist.
         """
         if path[:len(os.sep)] == os.sep:
@@ -47,17 +48,17 @@ class Chroot(object):
 
     def is_created(self):
         """
-        Return True if the chroot exists or False.
+        Return True if the buildroot exists or False.
         """
         return os.path.isdir(self.root) and os.listdir(self.root)
 
     def create(self, stage, portage):
         """
-        Create the chroot if it does not eixist. Use the provided stage and
-        portage tarball paths. Does not start() the chroot. Return True on
-        success or False if the chroot exists. Raise OSError if the chroot
-        directory cannot be created. Raise ExecuteError if the provided
-        tarballs fail to extract.
+        Create the buildroot if it does not eixist. Use the provided stage and
+        portage tarball paths. Does not start() the buildroot. Return True on
+        success or False if the buildroot exists. Raise OSError if the
+        buildroot directory cannot be created. Raise ExecuteError if the
+        provided tarballs fail to extract.
         """
         if self.is_created():
             return False
@@ -71,7 +72,8 @@ class Chroot(object):
 
     def destroy(self):
         """
-        Delete a chroot. Return True on success or False if it does not exist.
+        Delete a buildroot. Return True on success or False if it does not
+        exist.
         """
         if not self.is_created():
             return False
@@ -82,20 +84,20 @@ class Chroot(object):
 
     def is_started(self):
         """
-        Return True if the chroot has been started or False.
+        Return True if the buildroot has been started or False.
         """
         return self.tmp
 
     def start(self):
         """
-        Start the chroot. Return True on success or False if already started.
-        Raise OSError if tmp directory creation fails. Raise ExecuteError on
-        mount failure.
+        Start the buildroot. Return True on success or False if already
+        started. Raise OSError if tmp directory creation fails. Raise
+        ExecuteError on mount failure.
         """
         if self.is_started():
             return False
 
-        self.tmp = mktempdir('chroot_')
+        self.tmp = mktempdir('buildroot_')
         mount('/dev', self.path('/dev'), bind=True)
         mount('none', self.path('/proc'), fstype='proc')
         mount('/sys', self.path('/sys'), bind=True)
@@ -104,8 +106,8 @@ class Chroot(object):
 
     def stop(self):
         """
-        Stop the chroot. Return True on success or False if not started. Raise
-        ExecuteError on umount failures.
+        Stop the buildroot. Return True on success or False if not started.
+        Raise ExecuteError on umount failures.
         """
         if not self.is_started():
             return False
@@ -128,7 +130,7 @@ class Chroot(object):
 
     def call(self, args, checkcode=None, stdin=None, stdout=None, stderr=None):
         """
-        Call the command specified by args in the chroot and return the exit
+        Call the command specified by args in the buildroot and return the exit
         code.
 
         Settings checkcode will cause the method to raise an ExecutionError if
@@ -157,7 +159,7 @@ class Chroot(object):
 
     def call_output(self, args, checkcode=None, stdin=None, stderr=None):
         """
-        Call the command specified by args in the chroot and return a
+        Call the command specified by args in the buildroot and return a
         two-tupple containing the command's exit code and stdout output.
 
         Aside from the stdout param, which is removed, all parameters are
@@ -186,10 +188,10 @@ class Chroot(object):
         """
         Convert the object into a printable string.
         """
-        return "chroot at '%s'" % self.root
+        return "buildroot at '%s'" % self.root
 
     def __repr__(self):
         """
         Return a string representation of the object.
         """
-        return "<Chroot(%s)>" % repr(self.root)
+        return "<%s(%s)>" % (self.__class__.__name__, repr(self.root))
